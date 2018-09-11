@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+# Install brew
+which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# Freshen brew
+brew update
+brew upgrade
+
+# Manage dotfiles
+brew install stow
+
+# Manage my runtimes
+brew install rbenv
+brew install nodenv
+
+# Productivity
+brew install tmux
+brew install hub
+brew install tree
+brew install ripgrep
+
+# GUI
+brew cask install macvim || true # continue on error
+brew cask install google-chrome || true # continue on error
+
+# Finally
+brew cleanup
