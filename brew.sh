@@ -21,9 +21,14 @@ brew install hub
 brew install tree
 brew install ripgrep
 
+# Web
+brew install ievms
+
 # GUI
-brew cask install macvim || true # continue on error
-brew cask install google-chrome || true # continue on error
+brew cask install macvim || true # "... || true" -> continue on error
+brew cask install google-chrome || true
+brew cask install virtualbox || true # requires sudo
+brew cask install virtualbox-extension-pack || true
 
 # Finally
 brew cleanup
