@@ -18,6 +18,9 @@ brew install stow
 brew install rbenv
 brew install nodenv
 
+# Manage my apps
+brew install mas
+
 # Productivity
 brew install tmux
 brew install hub
