@@ -76,6 +76,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'janko-m/vim-test'
+  Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " Stolen from @searls
@@ -112,6 +113,9 @@ set path+=lib/**,test/**
 
 set spelllang=en_us
 set complete+=kspell
+
+set background=light
+colorscheme solarized8_flat
 
 command! -nargs=* Wrap set wrap linebreak nolist
 autocmd FileType markdown Wrap set colorcolumn=0
