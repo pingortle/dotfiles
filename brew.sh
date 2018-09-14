@@ -8,6 +8,9 @@ which brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/H
 brew update
 brew upgrade
 
+# Essentials
+brew install git
+
 # Manage dotfiles
 brew install stow
 
