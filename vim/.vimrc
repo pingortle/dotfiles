@@ -8,7 +8,9 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug 'janko-m/vim-test'
   Plug 'lifepillar/vim-solarized8'
+  Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rbenv'
