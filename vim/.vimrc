@@ -22,30 +22,26 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-ruby/vim-ruby'
 call plug#end()
 
-" Stolen from @searls
-
+" Whitespace
 set expandtab
 set shiftwidth=2
 set softtabstop=2
 
+" UX
 set scrolloff=2
-
 set showcmd
 set incsearch
-
-" Kaleb's Stuff
-
+set hlsearch
 set number
 set relativenumber
-set list
-set path+=lib/**,test/**
-
 set spelllang=en_us
 set complete+=kspell
 
+" Theme
 set background=light
 colorscheme solarized8_flat
 
+" Filetype customizations
 command! -nargs=* Wrap set wrap linebreak nolist
 autocmd FileType markdown Wrap set colorcolumn=0
 autocmd FileType markdown setlocal spell
