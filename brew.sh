@@ -9,6 +9,7 @@ brew update
 brew upgrade
 
 # Essentials
+brew install ctags
 brew install git
 
 # Manage dotfiles
