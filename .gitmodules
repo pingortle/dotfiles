@@ -1,0 +1,3 @@
+[submodule "rbenv/.rbenv/plugins/rbenv-default-gems"]
+	path = rbenv/.rbenv/plugins/rbenv-default-gems
+	url = https://github.com/rbenv/rbenv-default-gems.git
