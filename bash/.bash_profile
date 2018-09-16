@@ -5,3 +5,5 @@ eval "$(rbenv init -)"
 
 source /usr/local/etc/bash_completion.d/git-completion.bash
 export PS1="./\W \$ "
+
+alias diff="git diff --no-index"
