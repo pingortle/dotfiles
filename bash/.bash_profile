@@ -26,7 +26,7 @@ export FG_MAGENTA="\[\e[35m\]"
 export FG_RED="\[\e[31m\]"
 export FG_YELLOW="\[\e[33m\]"
 export FG_WHITE="\[\e[37m\]"
-export FG_GRAY="\e[90m"
+export FG_GRAY="\[\e[90m\]"
 
 export BG_BLACK="\[\e[40m\]"
 export BG_BLUE="\[\e[44m\]"
@@ -44,7 +44,7 @@ function git_prompt {
   type __git_ps1 &>/dev/null && __git_ps1 "⎇  %s"
 }
 
-export PS1="🔚$COLOR_RESET[$FG_GRAY\w$COLOR_RESET]\
+export PS1="$COLOR_RESET[$FG_GRAY\w$COLOR_RESET]\
 [$FG_GRAY$(git_prompt)$COLOR_RESET]\n\
 $FG_BLUE\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 export SCREENCAST_PS1="$COLOR_RESET[$FG_GRAY\W$COLOR_RESET]\n$FG_GREEN\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
