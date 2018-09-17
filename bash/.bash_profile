@@ -4,6 +4,7 @@ eval "$(nodenv init -)"
 eval "$(rbenv init -)"
 
 source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 export BOLD_ON="\[\e[1m\]"
 export BOLD_OFF="\[\e[22m\]"
@@ -39,7 +40,13 @@ export BG_WHITE="\[\e[47m\]"
 
 export COLOR_RESET="\[\e[0m\]" # reset; clears all colors and styles (to white on black)
 
-export PS1="$COLOR_RESET[$FG_GRAY\w$COLOR_RESET]\n$FG_BLUE\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
+function git_prompt {
+  type __git_ps1 &>/dev/null && __git_ps1 "⎇  %s"
+}
+
+export PS1="🔚$COLOR_RESET[$FG_GRAY\w$COLOR_RESET]\
+[$FG_GRAY$(git_prompt)$COLOR_RESET]\n\
+$FG_BLUE\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 export SCREENCAST_PS1="$COLOR_RESET[$FG_GRAY\W$COLOR_RESET]\n$FG_GREEN\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 
 alias diff="git diff --no-index"
