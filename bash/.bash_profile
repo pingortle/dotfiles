@@ -45,7 +45,7 @@ function git_prompt {
 }
 
 export PS1="$COLOR_RESET[$FG_GRAY\w$COLOR_RESET]\
-[$FG_GRAY$(git_prompt)$COLOR_RESET]\n\
+[$FG_GRAY$(printf '$(git_prompt)')$COLOR_RESET]\n\
 $FG_BLUE\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 export SCREENCAST_PS1="$COLOR_RESET[$FG_GRAY\W$COLOR_RESET]\n$FG_GREEN\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 
