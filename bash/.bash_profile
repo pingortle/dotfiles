@@ -52,3 +52,7 @@ export SCREENCAST_PS1="$COLOR_RESET[$FG_GRAY\W$COLOR_RESET]\n$FG_GREEN\u$BOLD_ON
 alias diff="git diff --no-index"
 alias rebash="source ~/.bash_profile"
 alias screencast='PS1="$SCREENCAST_PS1"'
+
+function prg {
+  rg -p $@ | less -RMFXK
+}
