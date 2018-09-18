@@ -36,6 +36,7 @@ set number
 set relativenumber
 set spelllang=en_us
 set complete+=kspell
+cabbr <expr> %% expand('%:p:h')
 
 " Theme
 set background=light
