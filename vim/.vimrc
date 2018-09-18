@@ -8,6 +8,7 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug 'janko-m/vim-test'
   Plug 'lifepillar/vim-solarized8'
+  Plug 'mileszs/ack.vim'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-endwise'
@@ -20,6 +21,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-ruby/vim-ruby'
+
+  Plug 'wincent/command-t', {
+      \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
+      \ }
 call plug#end()
 
 " Whitespace
@@ -32,6 +37,8 @@ set scrolloff=2
 set showcmd
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 set number
 set relativenumber
 set spelllang=en_us
