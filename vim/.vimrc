@@ -54,3 +54,7 @@ command! -nargs=* Wrap set wrap linebreak nolist
 autocmd FileType markdown Wrap set colorcolumn=0
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
+
+" TIL stuff
+:nnoremap <leader>??? "=strftime("%x")<CR>P^i# <C-[>o
+command! TIL execute "tabe" strftime("%Y-%m-%d.md")
