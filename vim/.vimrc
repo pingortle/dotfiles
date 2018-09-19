@@ -44,6 +44,7 @@ set relativenumber
 set spelllang=en_us
 set complete+=kspell
 cabbr <expr> %% expand('%:p:h')
+command! Revim execute "so ~/.vimrc"
 
 " Theme
 set background=light
