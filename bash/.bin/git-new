@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+IFS='/' read -ra ADDR <<< "$1"
+ORG="${ADDR[0]}"
+REPO="${ADDR[1]-$2}"
+ORG_DIR="$HOME/dev/$ORG"
+REPO_DIR="$ORG_DIR/$REPO"
+
+# Make sure directory exists
+mkdir -p "$REPO_DIR"
+
+echo "cd $REPO_DIR\n" | pbcopy
+echo "Hit Command-V to cd into the repo!"

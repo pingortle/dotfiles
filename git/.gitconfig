@@ -1,0 +1,17 @@
+[user]
+	email = pingortle@gmail.com
+	name = Kaleb Lape
+[github]
+	user = pingortle
+[color]
+	ui = auto
+[hub]
+[core]
+	excludesfile = ~/.gitignore_global
+[init]
+	templatedir = ~/.git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	commit-date = !git commit -m \"$(date +%Y-%m-%d)\"
+	new = !~/.bin/git-new
+	np = new pingortle
