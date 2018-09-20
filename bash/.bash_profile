@@ -58,3 +58,22 @@ alias vs="vim -S .git/session.vim"
 function prg {
   rg -p $@ | less -RMFXK
 }
+
+function dev {
+  local user=${2:+$1}
+  local repo=${2:-$1}
+
+  printf "$HOME/dev/$user/$repo"
+}
+
+function my {
+  printf $(dev pingortle $1)
+}
+
+function cdev {
+  cd $(dev $@)
+}
+
+function cmy {
+  cd $(my $@)
+}
