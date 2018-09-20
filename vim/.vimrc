@@ -43,6 +43,7 @@ set number
 set relativenumber
 set spelllang=en_us
 set complete+=kspell
+
 cabbr <expr> %% expand('%:p:h')
 command! Revim execute "so ~/.vimrc"
 
@@ -57,7 +58,7 @@ autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
 
 " TIL stuff
-:nnoremap <leader>??? "=strftime("%x")<CR>P^i# <C-[>o
+nnoremap <leader>??? "=strftime("%x")<CR>P^i# <C-[>o
 command! TIL execute "tabe" strftime("%Y-%m-%d.md")
 
 " Session
@@ -71,4 +72,4 @@ function! SaveSession(path)
   execute 'mksession! ' . session_file
 endfunction
 
-:nnoremap <leader>w :w<CR>:call SaveSession(GitDir())<CR>
+nnoremap <leader>w :wa<CR>:call SaveSession(GitDir())<CR>
