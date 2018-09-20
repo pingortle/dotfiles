@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'janko-m/vim-test'
   Plug 'lifepillar/vim-solarized8'
   Plug 'mileszs/ack.vim'
+  Plug 'pangloss/vim-javascript'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-endwise'
@@ -26,6 +27,9 @@ call plug#begin('~/.vim/plugged')
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
       \ }
 call plug#end()
+
+" Plugin Customization
+let g:javascript_plugin_flow = 1
 
 " Whitespace
 set expandtab
