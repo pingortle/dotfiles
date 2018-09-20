@@ -59,3 +59,16 @@ autocmd FileType gitcommit setlocal spell
 " TIL stuff
 :nnoremap <leader>??? "=strftime("%x")<CR>P^i# <C-[>o
 command! TIL execute "tabe" strftime("%Y-%m-%d.md")
+
+" Session
+function! GitDir()
+  let git_path = substitute(system("git rev-parse --show-toplevel 2>/dev/null"), '\n', '', '')
+  return git_path . "/.git"
+endfunction
+
+function! SaveSession(path)
+  let session_file = a:path.'/session.vim'
+  execute 'mksession! ' . session_file
+endfunction
+
+:nnoremap <leader>w :w<CR>:call SaveSession(GitDir())<CR>
