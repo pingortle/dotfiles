@@ -24,6 +24,7 @@ brew install mas
 
 # Productivity
 brew install tmux
+brew install tmate
 brew install hub
 brew install tree
 brew install ripgrep
