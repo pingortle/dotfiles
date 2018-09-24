@@ -64,6 +64,7 @@ autocmd FileType gitcommit setlocal spell
 " TIL stuff
 nnoremap <leader>??? "=strftime("%x")<CR>P^i# <C-[>o
 command! TIL execute "tabe" strftime("%Y-%m-%d.md")
+nnoremap <leader>p :execute 'tabe' strftime("$MYDEV/notes/%Y-%m-%d.md")<CR>
 
 " Session
 function! GitDir()
