@@ -49,6 +49,10 @@ export PS1="$COLOR_RESET[$FG_GRAY\w$COLOR_RESET]\
 $FG_BLUE\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 export SCREENCAST_PS1="$COLOR_RESET[$FG_GRAY\W$COLOR_RESET]\n$FG_GREEN\u$BOLD_ON$FG_GRAY\$$BOLD_OFF $COLOR_RESET"
 
+export GIT_USER=pingortle
+export DEV="$HOME/dev"
+export MYDEV="$DEV/$GIT_USER"
+
 alias diff="git diff --no-index"
 alias rebash="source ~/.bash_profile"
 alias screencast='PS1="$SCREENCAST_PS1"'
@@ -67,7 +71,7 @@ function dev {
 }
 
 function my {
-  printf $(dev pingortle $1)
+  printf $(dev $GIT_USER $1)
 }
 
 function cdev {
