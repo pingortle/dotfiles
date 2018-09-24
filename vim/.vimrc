@@ -7,6 +7,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'janko-m/vim-test'
+  Plug 'jremmen/vim-ripgrep'
   Plug 'lifepillar/vim-solarized8'
   Plug 'mileszs/ack.vim'
   Plug 'pangloss/vim-javascript'
