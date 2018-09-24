@@ -12,6 +12,7 @@
 	templatedir = ~/.git_template
 [alias]
 	ctags = !.git/hooks/ctags
-	commit-date = !git commit -m \"$(date +%Y-%m-%d)\"
+	commit-date-short = !git commit -m \"$(date +%Y-%m-%d)\"
+	commit-date = !git commit -m \"$(date)\"
 	new = !~/.bin/git-new
 	np = new pingortle
