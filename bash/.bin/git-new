@@ -8,6 +8,8 @@ REPO_DIR="$ORG_DIR/$REPO"
 
 # Make sure directory exists
 mkdir -p "$REPO_DIR"
+cd "$REPO_DIR"
+git init
 
 echo "cd $REPO_DIR\n" | pbcopy
 echo "Hit Command-V to cd into the repo!"
