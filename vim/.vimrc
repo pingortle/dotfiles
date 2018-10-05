@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-ruby/vim-ruby'
+  Plug 'w0rp/ale'
 
   " Themes
   Plug 'lifepillar/vim-solarized8'
@@ -36,7 +37,8 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " Plugin Customization
-let g:javascript_plugin_flow = 1
+let g:markdown_fenced_languages = ['ruby', 'js=javascript']
+let g:markdown_minlines = 150
 
 " Whitespace
 set expandtab
@@ -75,7 +77,6 @@ call textobj#user#plugin('dash', {
 
 " Theme
 set background=light
-" colorscheme solarized8_flat
 colorscheme pencil
 let g:pencil_terminal_italics = 1
 

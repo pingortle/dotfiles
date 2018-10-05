@@ -1,5 +1,3 @@
-" set suffixesadd+=.js,.jsx
-
 function! LoadMainNodeModule(fname)
   if a:fname =~ "^\\."
     if a:fname =~ "^\\.\\."
