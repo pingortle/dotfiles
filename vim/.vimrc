@@ -24,6 +24,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-ruby/vim-ruby'
 
+  " Themes
+  Plug 'lifepillar/vim-solarized8'
+  Plug 'reedes/vim-colors-pencil'
+
+  " Noisy
   Plug 'wincent/command-t', {
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
       \ }
@@ -52,9 +57,26 @@ set complete+=kspell
 cabbr <expr> %% expand('%:p:h')
 command! Revim execute "so ~/.vimrc"
 
+set splitbelow
+set splitright
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+call textobj#user#plugin('dash', {
+      \   'dash-word': {
+      \     'pattern': '\(\w\|-\)\+',
+      \     'select': ['adw', 'idw'],
+      \   }
+      \ })
+
 " Theme
 set background=light
-colorscheme solarized8_flat
+" colorscheme solarized8_flat
+colorscheme pencil
+let g:pencil_terminal_italics = 1
 
 " Filetype customizations
 command! -nargs=* Wrap set wrap linebreak nolist
