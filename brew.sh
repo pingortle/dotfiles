@@ -28,6 +28,7 @@ brew install tmate
 brew install hub
 brew install tree
 brew install ripgrep
+brew install mdp # Markdown presentations on terminal
 
 # Web
 brew install ievms
