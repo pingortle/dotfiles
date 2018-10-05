@@ -52,6 +52,7 @@ export SCREENCAST_PS1="$COLOR_RESET[$FG_GRAY\W$COLOR_RESET]\n$FG_GREEN\u$BOLD_ON
 export GIT_USER=pingortle
 export DEV="$HOME/dev"
 export MYDEV="$DEV/$GIT_USER"
+export DOTFILES="$MYDEV/dotfiles"
 
 alias diff="git diff --no-index"
 alias rebash="source ~/.bash_profile"
