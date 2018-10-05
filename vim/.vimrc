@@ -6,6 +6,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+  Plug 'christoomey/vim-tmux-navigator'
   Plug 'DataWraith/auto_mkdir'
   Plug 'janko-m/vim-test'
   Plug 'jremmen/vim-ripgrep'
@@ -39,6 +40,7 @@ call plug#end()
 " Plugin Customization
 let g:markdown_fenced_languages = ['ruby', 'js=javascript']
 let g:markdown_minlines = 150
+let g:tmux_navigator_disable_when_zoomed = 1
 
 " Whitespace
 set expandtab
@@ -62,11 +64,6 @@ command! Revim execute "so ~/.vimrc"
 
 set splitbelow
 set splitright
-
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 call textobj#user#plugin('dash', {
       \   'dash-word': {
