@@ -16,3 +16,5 @@
 	commit-date = !git commit -m \"$(date)\"
 	new = !~/.bin/git-new
 	np = new pingortle
+	cb = !git rev-parse --abbrev-ref HEAD | tr -d \"\\n\"
+	branch-pr = !hub pr list --head=$(git cb)

@@ -6,15 +6,16 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+  Plug 'DataWraith/auto_mkdir'
   Plug 'janko-m/vim-test'
   Plug 'jremmen/vim-ripgrep'
-  Plug 'lifepillar/vim-solarized8'
-  Plug 'mileszs/ack.vim'
+  Plug 'kana/vim-textobj-user'
   Plug 'pangloss/vim-javascript'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rbenv'
   Plug 'tpope/vim-rhubarb'
@@ -91,13 +92,26 @@ nnoremap <leader>p :execute 'tabe' strftime("$MYDEV/notes/%Y-%m-%d.md")<CR>
 
 " Session
 function! GitDir()
-  let git_path = substitute(system("git rev-parse --show-toplevel 2>/dev/null"), '\n', '', '')
+  let git_path = substitute(system("git rev-parse --show-toplevel 2>/dev/null"), '\n\+$', '', '')
   return git_path . "/.git"
+endfunction
+
+function! GitBranch()
+  return substitute(system("git rev-parse --abbrev-ref HEAD"), '\n\+$', '', '')
 endfunction
 
 function! SaveSession(path)
   let session_file = a:path.'/session.vim'
-  execute 'mksession! ' . session_file
+  execute 'mksession! ' . a:path
 endfunction
 
-nnoremap <leader>w :wa<CR>:call SaveSession(GitDir())<CR>
+function! SafeLoadVimfile(path)
+  if filereadable(expand(a:path))
+    execute 'source '.expand(a:path)
+  endif
+endfunction
+
+nnoremap <leader>wg :wa<CR>:call SaveSession(GitDir().'/session.vim')<CR>
+nnoremap <leader>w :wa<CR>:call SaveSession(GitDir().'/'.GitBranch().'.vim')<CR>
+
+autocmd BufEnter,VimEnter call SafeLoadPath(GitDir().'.vimrc')

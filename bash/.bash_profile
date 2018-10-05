@@ -57,7 +57,8 @@ alias diff="git diff --no-index"
 alias rebash="source ~/.bash_profile"
 alias screencast='PS1="$SCREENCAST_PS1"'
 alias v=vim
-alias vs="vim -S .git/session.vim"
+alias vs='vim -S .git/$(git rev-parse --abbrev-ref HEAD | tr -d "\n").vim'
+alias tpbc='tmux saveb - | pbcopy'
 
 function prg {
   rg -p $@ | less -RMFXK
