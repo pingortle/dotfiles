@@ -38,6 +38,7 @@ brew cask install macvim || true # "... || true" -> continue on error
 brew cask install google-chrome || true
 brew cask install virtualbox || true # requires sudo
 brew cask install virtualbox-extension-pack || true
+brew cask install iterm2 || true
 
 # Finally
 brew cleanup

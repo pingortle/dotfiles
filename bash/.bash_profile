@@ -1,4 +1,6 @@
 export PATH="/usr/local/sbin:$HOME/.bin:$PATH"
+export TERM=xterm-256color-italic
+export CLICOLOR=1
 
 eval "$(nodenv init -)"
 eval "$(rbenv init -)"

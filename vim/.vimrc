@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugged')
 
   " Themes
   Plug 'lifepillar/vim-solarized8'
+  Plug 'rakr/vim-two-firewatch'
   Plug 'reedes/vim-colors-pencil'
 
   " Noisy
@@ -36,6 +37,12 @@ call plug#begin('~/.vim/plugged')
       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
       \ }
 call plug#end()
+
+" Theme
+set background=light
+let g:two_firewatch_italics=1
+let g:airline_theme='twofirewatch'
+colorscheme two-firewatch
 
 " Plugin Customization
 let g:markdown_fenced_languages = ['ruby', 'js=javascript']
@@ -72,11 +79,6 @@ call textobj#user#plugin('dash', {
       \   }
       \ })
 
-" Theme
-set background=light
-colorscheme pencil
-let g:pencil_terminal_italics = 1
-
 " Filetype customizations
 command! -nargs=* Wrap set wrap linebreak nolist
 autocmd FileType markdown Wrap set colorcolumn=0
@@ -112,4 +114,4 @@ endfunction
 nnoremap <leader>wg :wa<CR>:call SaveSession(GitDir().'/session.vim')<CR>
 nnoremap <leader>w :wa<CR>:call SaveSession(GitDir().'/'.GitBranch().'.vim')<CR>
 
-autocmd BufEnter,VimEnter call SafeLoadPath(GitDir().'.vimrc')
+autocmd VimEnter * call SafeLoadVimfile(GitDir().'/.vimrc')

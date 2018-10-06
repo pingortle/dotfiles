@@ -1,3 +1,6 @@
 [submodule "rbenv/.rbenv/plugins/rbenv-default-gems"]
 	path = rbenv/.rbenv/plugins/rbenv-default-gems
 	url = https://github.com/rbenv/rbenv-default-gems.git
+[submodule "terminal/.iterm2-themes/iterm-two-firewatch"]
+	path = terminal/.iterm2-themes/iterm-two-firewatch
+	url = git@github.com:rakr/iterm-two-firewatch.git
