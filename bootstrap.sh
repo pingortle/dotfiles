@@ -5,3 +5,4 @@ set -ex
 ./brew.sh
 ./apps.sh
 ./install.sh
+./bundle.sh

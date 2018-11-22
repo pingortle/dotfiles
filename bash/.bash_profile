@@ -1,4 +1,5 @@
-export PATH="/usr/local/sbin:$HOME/.bin:$PATH"
+export GEM_HOME=$HOME/.gem
+export PATH="/usr/local/sbin:$HOME/.bin:$GEM_HOME/bin:$HOME/.binstubs:$PATH"
 export TERM=xterm-256color-italic
 export CLICOLOR=1
 
