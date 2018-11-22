@@ -10,7 +10,9 @@ brew upgrade
 
 # Essentials
 brew install ctags
+brew install fzf
 brew install git
+brew install shellcheck
 
 # Manage dotfiles
 brew install stow

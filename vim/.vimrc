@@ -6,12 +6,20 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'christoomey/vim-tmux-navigator'
+  Plug '/usr/local/opt/fzf'
   Plug 'DataWraith/auto_mkdir'
+  Plug 'alvan/vim-closetag'
+  Plug 'christoomey/vim-tmux-navigator'
   Plug 'janko-m/vim-test'
   Plug 'jremmen/vim-ripgrep'
+  Plug 'junegunn/vim-emoji'
   Plug 'kana/vim-textobj-user'
+  Plug 'michaeljsmith/vim-indent-object'
+  Plug 'mxw/vim-jsx'
+  Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'pangloss/vim-javascript'
+  Plug 'reedes/vim-pencil'
+  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-endwise'
@@ -28,26 +36,68 @@ call plug#begin('~/.vim/plugged')
   Plug 'w0rp/ale'
 
   " Themes
-  Plug 'lifepillar/vim-solarized8'
-  Plug 'rakr/vim-two-firewatch'
-  Plug 'reedes/vim-colors-pencil'
+  " Plug 'lifepillar/vim-solarized8'
+  " Plug 'rakr/vim-two-firewatch'
+  " pencil was misbehaving (adding random junk to every fresh vim instance)
+  " commenting out until I get a chance to figure out what's going on
+  " Plug 'reedes/vim-colors-pencil'
+  Plug 'sonph/onehalf', {'rtp': 'vim/'}
+  Plug 'rakr/vim-one'
+  Plug 'cormacrelf/vim-colors-github'
 
-  " Noisy
-  Plug 'wincent/command-t', {
-      \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
-      \ }
+"   " Noisy
+"   Plug 'wincent/command-t', {
+"       \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
+"       \ }
 call plug#end()
 
 " Theme
-set background=light
-let g:two_firewatch_italics=1
-let g:airline_theme='twofirewatch'
-colorscheme two-firewatch
+let g:github_colors_soft = 1
+colorscheme github
+let g:airline_theme = 'github'
+set cursorline
 
 " Plugin Customization
 let g:markdown_fenced_languages = ['ruby', 'js=javascript']
 let g:markdown_minlines = 150
 let g:tmux_navigator_disable_when_zoomed = 1
+
+" Plugin vim-test
+let test#strategy = "dispatch"
+
+" Plugin vim-closetag
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+
+let g:closetag_filenames = '*.html,*.html.erb,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+
+let g:closetag_emptyTags_caseSensitive = 1
+
+" Shortcut for closing tags, default is '>'
+
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+
+let g:closetag_close_shortcut = '<leader>>'
 
 " Whitespace
 set expandtab
@@ -65,12 +115,13 @@ set number
 set relativenumber
 set spelllang=en_us
 set complete+=kspell
+set nowrap
+set splitright
+
+nnoremap <C-]> g<C-]>
 
 cabbr <expr> %% expand('%:p:h')
 command! Revim execute "so ~/.vimrc"
-
-set splitbelow
-set splitright
 
 call textobj#user#plugin('dash', {
       \   'dash-word': {
@@ -101,7 +152,10 @@ function! GitBranch()
 endfunction
 
 function! SaveSession(path)
-  let session_file = a:path.'/session.vim'
+  let dir = fnamemodify(a:path, ":h")
+  if !isdirectory(dir)
+    call mkdir(dir, "p")
+  endif
   execute 'mksession! ' . a:path
 endfunction
 
@@ -115,3 +169,9 @@ nnoremap <leader>wg :wa<CR>:call SaveSession(GitDir().'/session.vim')<CR>
 nnoremap <leader>w :wa<CR>:call SaveSession(GitDir().'/'.GitBranch().'.vim')<CR>
 
 autocmd VimEnter * call SafeLoadVimfile(GitDir().'/.vimrc')
+
+command! ChmodX execute "!chmod +x %"
+nnoremap <leader>#! ^i#!/usr/bin/env
+
+nnoremap <leader>rg :Rg <C-r><C-w>
+
