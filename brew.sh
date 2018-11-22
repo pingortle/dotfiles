@@ -32,6 +32,9 @@ brew install tree
 brew install ripgrep
 brew install mdp # Markdown presentations on terminal
 
+# Swiss Army Knife
+brew install transmission
+
 # Web
 brew install ievms
 

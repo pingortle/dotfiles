@@ -2,12 +2,14 @@ export GEM_HOME=$HOME/.gem
 export PATH="/usr/local/sbin:$HOME/.bin:$GEM_HOME/bin:$HOME/.binstubs:$PATH"
 export TERM=xterm-256color-italic
 export CLICOLOR=1
+export EDITOR=vim
 
 eval "$(nodenv init -)"
 eval "$(rbenv init -)"
 
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
+[ -f $HOME/.creds ] && source $HOME/.creds
 
 export BOLD_ON="\[\e[1m\]"
 export BOLD_OFF="\[\e[22m\]"
@@ -62,7 +64,21 @@ alias rebash="source ~/.bash_profile"
 alias screencast='PS1="$SCREENCAST_PS1"'
 alias v=vim
 alias vs='vim -S .git/$(git rev-parse --abbrev-ref HEAD | tr -d "\n").vim'
+alias mvims='mvim -S .git/$(git rev-parse --abbrev-ref HEAD | tr -d "\n").vim'
+alias til="vim \"$MYDEV/til\" +'cd %:p:h' +TIL"
 alias tpbc='tmux saveb - | pbcopy'
+alias tmux-here='tmux new -s "$(basename $(pwd))" -c $(pwd)'
+alias ssh='TERM=xterm-256color ssh'
+alias toggle-dark="osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to not dark mode'"
+alias browse-node-docs="open https://nodejs.org/dist/latest/docs/api/"
+alias mdlive="npx --quiet markdown-live"
+alias whatsmyip="curl https://api.ipify.org"
+
+alias la="ls -a"
+
+function vrg {
+  vim +"Rg $@"
+}
 
 function prg {
   rg -p $@ | less -RMFXK

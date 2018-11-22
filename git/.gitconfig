@@ -11,6 +11,9 @@
 [init]
 	templatedir = ~/.git_template
 [alias]
+	co = checkout
+	cob = checkout -b
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 	ctags = !.git/hooks/ctags
 	commit-date-short = !git commit -m \"$(date +%Y-%m-%d)\"
 	commit-date = !git commit -m \"$(date)\"
@@ -18,3 +21,6 @@
 	np = new pingortle
 	cb = !git rev-parse --abbrev-ref HEAD | tr -d \"\\n\"
 	branch-pr = !hub pr list --head=$(git cb)
+	diff-base = !git diff $(git merge-base origin/master head)
+	edit-branch = !vim $(git diff-base --name-only)
+	pp = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
