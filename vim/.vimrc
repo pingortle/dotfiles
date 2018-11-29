@@ -134,7 +134,12 @@ call textobj#user#plugin('dash', {
       \   'dash-word': {
       \     'pattern': '\(\w\|-\)\+',
       \     'select': ['adw', 'idw'],
-      \   }
+      \   },
+      \   'html-comment': {
+      \     'pattern': ['<!--', '-->'],
+      \     'select-a': 'act',
+      \     'select-i': 'ict',
+      \   },
       \ })
 
 " Filetype customizations
