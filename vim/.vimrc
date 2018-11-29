@@ -185,10 +185,11 @@ endfunction
 nnoremap <leader>wg :wa<CR>:call SaveSession(GitDir().'/session.vim')<CR>
 nnoremap <leader>w :wa<CR>:call SaveSession(GitDir().'/'.GitBranch().'.vim')<CR>
 
-autocmd VimEnter * call SafeLoadVimfile(GitDir().'/.vimrc')
-
 command! ChmodX execute "!chmod +x %"
 nnoremap <leader>#! ^i#!/usr/bin/env
 
 nnoremap <leader>rg :Rg <C-r><C-w>
 
+" Leave this at the end so projects get an opportunity to override things.
+" TODO: Add a boilerplate .vimrc to the git template
+silent! call SafeLoadVimfile(GitDir().'/.vimrc')
