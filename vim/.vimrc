@@ -106,6 +106,8 @@ let g:closetag_close_shortcut = '<leader>>'
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+set showbreak=↪\ 
+set list listchars=precedes:«,extends:»,trail:░,nbsp:☐
 
 " UX
 set scrolloff=2
