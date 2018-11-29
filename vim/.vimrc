@@ -120,7 +120,7 @@ set splitright
 
 nnoremap <C-]> g<C-]>
 
-cabbr <expr> %% expand('%:p:h')
+cabbr <expr> %% fnamemodify(expand('%:p:h'), ':~:.')
 command! Revim execute "so ~/.vimrc"
 
 call textobj#user#plugin('dash', {
