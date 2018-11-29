@@ -124,6 +124,8 @@ set nowrap
 set splitright
 
 nnoremap <C-]> g<C-]>
+nnoremap <leader>] :set nowrap<cr>
+nnoremap <leader>[ :set wrap<cr>
 
 cabbr <expr> %% fnamemodify(expand('%:p:h'), ':~:.')
 command! Revim execute "so ~/.vimrc"
