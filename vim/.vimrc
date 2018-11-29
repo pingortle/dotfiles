@@ -125,6 +125,9 @@ set complete+=kspell
 set nowrap
 set splitright
 
+set wildcharm=<C-Z>
+nnoremap <leader>z :b <C-Z>
+
 nnoremap <C-]> g<C-]>
 nnoremap <leader>] :set nowrap<cr>
 nnoremap <leader>[ :set wrap<cr>
