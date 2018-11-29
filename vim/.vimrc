@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-emoji'
   Plug 'kana/vim-textobj-user'
   Plug 'michaeljsmith/vim-indent-object'
+  Plug 'mustache/vim-mustache-handlebars'
   Plug 'mxw/vim-jsx'
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'pangloss/vim-javascript'
