@@ -44,6 +44,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'sonph/onehalf', {'rtp': 'vim/'}
   Plug 'rakr/vim-one'
   Plug 'cormacrelf/vim-colors-github'
+  Plug 'owickstrom/vim-colors-paramount'
+  Plug 'robertmeta/nofrils'
+  Plug 'vim-airline/vim-airline-themes'
 
 "   " Noisy
 "   Plug 'wincent/command-t', {
@@ -53,8 +56,8 @@ call plug#end()
 
 " Theme
 let g:github_colors_soft = 1
-colorscheme github
-let g:airline_theme = 'github'
+colorscheme paramount
+let g:airline_theme = 'minimalist'
 set cursorline
 
 " Plugin Customization
