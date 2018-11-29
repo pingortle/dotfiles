@@ -75,6 +75,7 @@ alias mdlive="npx --quiet markdown-live"
 alias whatsmyip="curl https://api.ipify.org"
 
 alias la="ls -a"
+alias be="bundle exec"
 
 function vrg {
   vim +"Rg $@"
