@@ -155,6 +155,11 @@ call textobj#user#plugin('dash', {
       \     'select-a': 'act',
       \     'select-i': 'ict',
       \   },
+      \   'erb': {
+      \     'pattern': ['<%', '%>'],
+      \     'select-a': 'ace',
+      \     'select-i': 'ice',
+      \   },
       \ })
 
 " Filetype customizations
