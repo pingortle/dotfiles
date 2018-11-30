@@ -142,6 +142,31 @@ nnoremap <C-]> g<C-]>
 nnoremap <leader>] :set nowrap<cr>
 nnoremap <leader>[ :set wrap<cr>
 
+nnoremap j :m+<CR>==
+nnoremap k :m-2<CR>==
+nnoremap h <<
+nnoremap l >>
+
+inoremap j <Esc>:m+<CR>==gi
+inoremap k <Esc>:m-2<CR>==gi
+inoremap h <Esc><<gi<C-o>2h
+inoremap l <Esc>>>gi<C-o>2l
+
+" Experiment:
+" Mapping ^[ in insert mode can be tricky because it introduces a lag when
+" using <Esc> to return to normal mode. My muscle memory causes me to use a
+" ^[{h,j,k,l} pattern to quickly move around after editing. I will see if
+" I can learn to double mash ^[ in insert to alleviate this pain.
+inoremap  <Esc><Esc>
+
+vnoremap j :m'>+<CR>gv=gv
+vnoremap k :m-2<CR>gv=gv
+vnoremap h <gv
+vnoremap l >gv
+
+" See note for inoremap ^[^[ above
+vnoremap  <Esc><Esc>
+
 cabbr <expr> %% fnamemodify(expand('%:p:h'), ':~:.')
 command! Revim execute "so ~/.vimrc"
 
