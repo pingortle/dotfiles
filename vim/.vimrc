@@ -110,7 +110,16 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set showbreak=↪\ 
-set list listchars=precedes:«,extends:»,trail:░,nbsp:☐
+
+function! DefaultWhitespace()
+  set list listchars=tab:\ \ ,precedes:«,extends:»,trail:░,nbsp:☐
+endfunction
+call DefaultWhitespace()
+
+function! DebugWhitespace()
+  call DefaultWhitespace()
+  setlocal listchars+=space:⌟,tab:⌞\ ,eol:⏎
+endfunction
 
 " UX
 set scrolloff=2
