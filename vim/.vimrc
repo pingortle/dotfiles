@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'janko-m/vim-test'
   Plug 'jremmen/vim-ripgrep'
+  Plug 'junegunn/goyo.vim'
   Plug 'junegunn/vim-emoji'
   Plug 'kana/vim-textobj-user'
   Plug 'michaeljsmith/vim-indent-object'
@@ -105,6 +106,30 @@ let g:closetag_shortcut = '>'
 
 let g:closetag_close_shortcut = '<leader>>'
 
+" Plugin goyo
+function! s:goyo_enter()
+  if has('gui_running')
+    set fullscreen
+    set linespace=16
+    set guifont=OpenDyslexicMono:h20
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
+endfunction
+
+function! s:goyo_leave()
+  if has('gui_running')
+    set nofullscreen
+    set linespace=0
+    set guifont=Monaco:h16
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 " Whitespace
 set expandtab
 set shiftwidth=2
@@ -137,6 +162,9 @@ set splitright
 
 set wildcharm=<C-Z>
 nnoremap <leader>z :b <C-Z>
+
+noremap <C-p> gk
+noremap <C-n> gj
 
 nnoremap <C-]> g<C-]>
 nnoremap <leader>] :set nowrap<cr>
