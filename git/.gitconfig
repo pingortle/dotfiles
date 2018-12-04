@@ -24,3 +24,4 @@
 	diff-base = !git diff $(git merge-base origin/master head)
 	edit-branch = !vim $(git diff-base --name-only)
 	pp = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	revive = !git checkout $(git rev-list -n 1 HEAD -- \"$1\")^ \"$1\"
