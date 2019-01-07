@@ -7,3 +7,6 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "nodenv/.nodenv/plugins"]
+	path = nodenv/.nodenv/plugins
+	url = https://github.com/nodenv/nodenv-default-packages.git
