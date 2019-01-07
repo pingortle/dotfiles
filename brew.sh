@@ -44,6 +44,7 @@ brew cask install google-chrome || true
 brew cask install virtualbox || true # requires sudo
 brew cask install virtualbox-extension-pack || true
 brew cask install iterm2 || true
+brew cask install licecap || true
 
 # Finally
 brew cleanup
