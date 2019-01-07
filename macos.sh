@@ -2,6 +2,12 @@
 
 # Inspired by https://mths.be/macos
 
+# Developed on
+# MacBook Pro (15-inch, 2018)
+# 2.9 GHz Intel Core i9
+# 32 GB 2400 MHz DDR4
+# Intel UHD Graphics 630 1536 MB
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
