@@ -1,0 +1,16 @@
+#!/usr/bin/env osascript
+
+on run argv
+  set desired to item 1 of argv
+
+  tell app "Terminal"
+    set default settings to settings set desired
+    set window_ids to id of every window
+
+    repeat with window_id in window_ids
+      ignoring application responses
+        set current settings of tabs of (every window whose id is window_id) to settings set desired
+      end ignoring
+    end repeat
+  end tell
+end run

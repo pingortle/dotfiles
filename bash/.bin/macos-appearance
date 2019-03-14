@@ -1,0 +1,12 @@
+#!/usr/bin/env osascript
+
+on run argv
+  set desired to item 1 of argv
+
+  tell application "System Events" to activate
+  tell application "System Events"
+      tell appearance preferences
+        set dark mode to desired equal to "dark"
+      end tell
+  end tell
+end run
