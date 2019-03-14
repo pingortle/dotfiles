@@ -1,0 +1,87 @@
+export GEM_HOME=$HOME/.gem
+export TERM=xterm-256color-italic
+export CLICOLOR=1
+export EDITOR=vim
+export XDG_CONFIG_HOME="$HOME/.config"
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/.ripgreprc"
+
+export GIT_USER=pingortle
+export DEV="$HOME/dev"
+export MYDEV="$DEV/$GIT_USER"
+export DOTFILES="$MYDEV/dotfiles"
+
+eval "$(git run --bash-complete)"
+
+source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/git-prompt.sh
+
+[ -f $HOME/.creds ] && source $HOME/.creds
+source $HOME/.colors
+
+alias diff="git diff --no-index"
+alias trim='tr -d "\n"'
+alias rebash="source ~/.me"
+alias screencast='PS1="$SCREENCAST_PS1"'
+alias v=vim
+alias vs='vim -S $(git dotgit | trim)/.vim-sessions/$(git rev-parse --abbrev-ref HEAD | trim).vim'
+alias mvims='mvim -S $(git dotgit | trim)/.vim-sessions/$(git rev-parse --abbrev-ref HEAD | trim).vim'
+alias til="vim \"$MYDEV/til\" +'cd %:p:h' +TIL"
+alias tpbc='tmux saveb - | pbcopy'
+alias tmux-here='tmux new -s "$(basename $(pwd))" -c $(pwd)'
+alias ssh='TERM=xterm-256color ssh'
+alias toggle-dark="osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to not dark mode'"
+alias browse-node-docs="open https://nodejs.org/dist/latest/docs/api/"
+alias mdlive="npx --quiet markdown-live"
+alias whatsmyip="curl https://api.ipify.org"
+alias kitty="/Applications/kitty.app/Contents/MacOS/kitty"
+alias hr='printf "%$(tput cols)s" "" | tr " " "◦"; echo; echo'
+
+alias la="ls -a"
+alias be="bundle exec"
+alias select-history='$(history | selecta | sed "s/^ *[0-9]* *//g")'
+
+function vrg {
+  vim +"Rg '$@'"
+}
+
+function prg {
+  rg -p "$@" | less -RMFXK
+}
+
+function dev {
+  local user=${2:+$1}
+  local repo=${2:-$1}
+
+  printf "$HOME/dev/$user/$repo"
+}
+
+function my {
+  printf $(dev $GIT_USER $1)
+}
+
+function cdev {
+  cd $(dev $@)
+}
+
+function cmy {
+  cd $(my $@)
+}
+
+function set-terminal-app-profile {
+  osascript -e \
+    "tell app \"Terminal\" to set current settings of first window to settings set \"$1\""
+}
+
+function good-night {
+  terminal-profile appsignal-dark
+  macos-appearance dark
+  printf dark > ~/.dev-mood
+  export DEV_MOOD=dark
+}
+
+function good-morning {
+  terminal-profile appsignal-light
+  macos-appearance light
+  printf light > ~/.dev-mood
+  export DEV_MOOD=light
+}
