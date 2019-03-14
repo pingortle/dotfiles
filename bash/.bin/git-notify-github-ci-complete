@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+while true; do
+  result="$(hub ci-status "$@")"
+  code="$?"
+  if (($code == "2")); then
+    echo "Pending..."
+    sleep 30
+  else
+    if (($code == "0")); then
+      emoji="✅"
+      word="Succeeded"
+      code=0
+    else
+      emoji="💔"
+      word="Failed"
+      code=1
+    fi
+
+    osascript -e "display notification \"GitHub CI completed with result '$result'\" with title \"$emoji CI Complete\""
+    echo "$word"
+    exit $code
+  fi
+done

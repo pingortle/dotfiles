@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+hub ci-status -v "$@" | grep "$(printf '\xe2\x9c\x96\xef\xb8\x8e')" | cut -f 3

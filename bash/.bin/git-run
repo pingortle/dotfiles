@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+COMPLETION_SCRIPT=$(cat <<'END_SCRIPT'
+_git_run() {
+  local IFS='
+';
+  if [ $cword == 2 ]
+  then
+    COMPREPLY=($(compgen -W "$(ls .git/bin | cat)" "${cur}"))
+  fi
+}
+END_SCRIPT
+)
+
+if [ "$*" == "--ls" ]
+then
+  ls .git/bin 2>/dev/null
+  exit 0
+elif [ "$*" == "--mkdir" ]
+then
+  mkdir -p .git/bin
+  exit 0
+elif [ "$*" == "--path" ]
+then
+  echo ".git/bin"
+  exit 0
+elif [ "$*" == "--bash-complete" ]
+then
+  echo "$COMPLETION_SCRIPT"
+  exit 0
+fi
+
+".git/bin/$1" "${@:1:$#}"
