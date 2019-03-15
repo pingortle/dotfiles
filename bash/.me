@@ -49,14 +49,11 @@ function prg {
 }
 
 function dev {
-  local user=${2:+$1}
-  local repo=${2:-$1}
-
-  printf "$HOME/dev/$user/$repo"
+  find ~/dev -type d -maxdepth 2 -depth 2 | fzf --query "$1"
 }
 
 function my {
-  printf $(dev $GIT_USER $1)
+  find ~/dev/$GIT_USER -type d -maxdepth 1 -depth 1 | fzf --query "$1"
 }
 
 function cdev {
