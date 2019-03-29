@@ -174,6 +174,9 @@ let g:ale_linters.scss = ['stylelint']
 let g:ale_linters.css = ['stylelint']
 
 nnoremap <leader>= :ALEFix<cr>
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
+nnoremap <leader>ad :ALEDetail<cr>
 
 " " Whitespace
 set expandtab
