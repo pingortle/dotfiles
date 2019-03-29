@@ -75,7 +75,7 @@ call plug#end()
 " " Theme
 " " set termguicolors
 " set background=light
-colorscheme dim
+colorscheme default
 let g:airline_theme = 'minimalist'
 
 function! ReloadMood()
