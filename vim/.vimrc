@@ -19,12 +19,16 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
 "   Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'airblade/vim-gitgutter'
   Plug 'DataWraith/auto_mkdir'
+  Plug 'digitaltoad/vim-pug'
   Plug 'alvan/vim-closetag'
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'ElmCast/elm-vim'
 "   Plug 'janko-m/vim-test'
   Plug 'jremmen/vim-ripgrep'
-"   Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/vim-emoji'
   Plug 'kana/vim-textobj-user'
 "   Plug 'michaeljsmith/vim-indent-object'
 "   Plug 'mustache/vim-mustache-handlebars'
@@ -44,7 +48,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-rhubarb'
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-surround'
-"   Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-unimpaired'
 "   Plug 'tsiemens/vim-aftercolors'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-ruby/vim-ruby'
@@ -74,22 +78,21 @@ call plug#end()
 colorscheme dim
 let g:airline_theme = 'minimalist'
 
-" function! ReloadMood()
-"   for line in readfile($HOME.'/.dev-mood', '', 1)
-"     " colorscheme "nofrils-".line
-"     let &background = line
-"   endfor
-" endfunction
-" " call ReloadMood()
+function! ReloadMood()
+  for line in readfile($HOME.'/.dev-mood', '', 1)
+    let &background = line
+  endfor
+endfunction
+call ReloadMood()
 
-" function! SetMood(mood)
-"   silent execute '!bash' '-lc' 'good-'.a:mood
-"   call ReloadMood()
-"   execute 'redraw!'
-" endfunction
+function! SetMood(mood)
+  silent execute '!bash' '-lc' 'good-'.a:mood
+  call ReloadMood()
+  execute 'redraw!'
+endfunction
 
-" command! GoodMorning call SetMood('morning')
-" command! GoodNight call SetMood('night')
+command! GoodMorning call SetMood('morning')
+command! GoodNight call SetMood('night')
 
 " " Plugin Customization
 let g:markdown_fenced_languages = ['ruby', 'js=javascript']
@@ -133,42 +136,42 @@ let g:closetag_shortcut = '>'
 
 let g:closetag_close_shortcut = '<leader>>'
 
-" " Plugin goyo
-" function! s:goyo_enter()
-"   if has('gui_running')
-"     set fullscreen
-"     set linespace=16
-"     set guifont=OpenDyslexicMono:h20
-"   elseif exists('$TMUX')
-"     silent !tmux set status off
-"   endif
-" endfunction
+" Plugin goyo
+function! s:goyo_enter()
+  if has('gui_running')
+    set fullscreen
+    " set linespace=16
+    set guifont=OpenDyslexicMono:h20
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
+endfunction
 
-" function! s:goyo_leave()
-"   if has('gui_running')
-"     set nofullscreen
-"     set linespace=0
-"     set guifont=Monaco:h16
-"   elseif exists('$TMUX')
-"     silent !tmux set status on
-"   endif
-" endfunction
+function! s:goyo_leave()
+  if has('gui_running')
+    set nofullscreen
+    set linespace=0
+    set guifont=Monaco:h16
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
+endfunction
 
-" autocmd! User GoyoEnter nested call <SID>goyo_enter()
-" autocmd! User GoyoLeave nested call <SID>goyo_leave()
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " " Plugin ALE
-" let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-" let g:ale_fixers.javascript = ['prettier-standard', 'standard']
-" let g:ale_fixers.ruby = ['standardrb']
-" let g:ale_fixers.scss = ['stylelint']
-" let g:ale_fixers.css = ['stylelint']
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers.javascript = ['prettier-standard', 'standard']
+let g:ale_fixers.ruby = ['standardrb']
+let g:ale_fixers.scss = ['stylelint']
+let g:ale_fixers.css = ['stylelint']
 
-" let g:ale_linters = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-" let g:ale_linters.javascript = ['prettier-standard', 'standard']
-" let g:ale_linters.ruby = ['standardrb']
-" let g:ale_linters.scss = ['stylelint']
-" let g:ale_linters.css = ['stylelint']
+let g:ale_linters = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_linters.javascript = ['prettier-standard', 'standard']
+let g:ale_linters.ruby = ['standardrb', 'reek']
+let g:ale_linters.scss = ['stylelint']
+let g:ale_linters.css = ['stylelint']
 
 nnoremap <leader>= :ALEFix<cr>
 
