@@ -39,6 +39,8 @@ alias hr='printf "%$(tput cols)s" "" | tr " " "◦"; echo; echo'
 alias la="ls -a"
 alias be="bundle exec"
 alias select-history='$(history | selecta | sed "s/^ *[0-9]* *//g")'
+alias frazzled='vim ~/.frazzle-dazzle.md'
+alias defrazzle='bat ~/.frazzle-dazzle.md'
 
 function vrg {
   vim +"Rg '$@'"
