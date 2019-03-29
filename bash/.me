@@ -49,7 +49,7 @@ function prg {
 }
 
 function dev {
-  find ~/dev -type d -maxdepth 2 -depth 2 | fzf --query "$1"
+  find ~/dev -maxdepth 2 -depth 2 | fzf --query "$1"
 }
 
 function my {
