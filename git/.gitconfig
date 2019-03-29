@@ -35,6 +35,8 @@
 	edit-modified = !$EDITOR $(git diff-modified --name-only "$@")
 	co-select = !git checkout $(git branch | selecta)
 	ls-ignored = ls-files --cached --ignored --others --directory --exclude-standard
+	statsu = status
+	remaster = rebase master
 [credential]
 	helper = osxkeychain
 [rebase]
