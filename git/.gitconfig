@@ -21,18 +21,18 @@
 	np = new pingortle
 	cb = !git rev-parse --abbrev-ref HEAD | tr -d \"\\n\"
 	branch-pr = !hub pr list --head=$(git cb)
-	diff-base = !git diff $(git merge-base origin/master head)
-	edit-branch = !$EDITOR $(git diff-base --name-only)
 	pp = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 	revive = !git checkout $(git rev-list -n 1 HEAD -- \"$1\")^ \"$1\"
 	vim-since-base = !vim $(git diff-base --name-only)
 	toplevel = rev-parse --show-toplevel
 	dotgit = !echo \"$(git toplevel | tr -d \"\n\")\"/.git
 	summarize = !git diff-base --compact-summary
+	diff-base = !git diff $(git merge-base origin/master head)
 	diff-conflicts = diff --diff-filter=U
 	diff-modified = diff --diff-filter=M
+	edit-branch = !$EDITOR $(git diff-base --name-only "$@")
 	edit-conflicts = !$EDITOR $(git diff-conflicts --name-only)
-	edit-modified = !$EDITOR $(git diff-modified --name-only)
+	edit-modified = !$EDITOR $(git diff-modified --name-only "$@")
 	co-select = !git checkout $(git branch | selecta)
 	ls-ignored = ls-files --cached --ignored --others --directory --exclude-standard
 [credential]
