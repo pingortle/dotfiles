@@ -84,3 +84,11 @@ function good-morning {
   printf light > ~/.dev-mood
   export DEV_MOOD=light
 }
+
+function visualize {
+  ffmpeg -i $1 \
+    -filter_complex "[0:a]showwaves=s=4096x2160:mode=cline,format=yuv420p[v]" \
+    -map "[v]" \
+    -map 0:a \
+    $2
+}
