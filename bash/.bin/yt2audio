@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eux
+
+YT_URL=$1
+RESULT_FILE=$2
+
+npx ytdl "$YT_URL" |
+  ffmpeg -i pipe:0 -filter:a loudnorm "$RESULT_FILE"
