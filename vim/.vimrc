@@ -301,7 +301,7 @@ nnoremap <leader>w :wa<CR>:call SaveSession(GitDir().'/.vim-sessions/'.GitBranch
 command! ChmodX execute "!chmod +x %"
 nnoremap <leader>#! ^i#!/usr/bin/env
 
-nnoremap <leader>rg :Rg <C-r><C-w>
+nnoremap <leader>rg :Rg <C-r><C-w> -w
 
 " " Leave this at the end so projects get an opportunity to override things.
 " " TODO: Add a boilerplate .vimrc to the git template
