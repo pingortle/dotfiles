@@ -19,6 +19,7 @@ brew install shellcheck
 brew install stow
 
 # Manage my runtimes
+brew cask install vagrant
 brew install rbenv
 brew install nodenv
 
