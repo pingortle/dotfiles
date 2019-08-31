@@ -104,7 +104,11 @@ let g:markdown_minlines = 150
 let g:tmux_navigator_disable_when_zoomed = 1
 
 " " Plugin vim-test
-" let test#strategy = 'dispatch'
+let test#strategy = 'dispatch'
+
+nnoremap <silent> <cr>t :TestFile<cr>
+nnoremap <silent> <cr>n :TestNearest<cr>
+nnoremap <silent> <cr><cr> :TestLast<cr><cr>
 
 " " Plugin vim-closetag
 " " filenames like *.xml, *.html, *.xhtml, ...
