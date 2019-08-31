@@ -12,6 +12,7 @@ brew upgrade
 brew install ctags
 brew install fzf
 brew install git
+brew install gpg
 brew install shellcheck
 
 # Manage dotfiles
@@ -33,6 +34,7 @@ brew install ripgrep
 brew install mdp # Markdown presentations on terminal
 
 # Swiss Army Knife
+brew cask install keybase
 brew install transmission
 
 # Web
