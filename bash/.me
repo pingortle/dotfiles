@@ -17,7 +17,7 @@ eval "$(git run --bash-complete)"
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
 
-[ -f $HOME/.creds ] && source $HOME/.creds
+[ -f $HOME/.secrets ] && source $HOME/.secrets
 source $HOME/.colors
 
 alias diff="git diff --no-index"
