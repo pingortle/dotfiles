@@ -12,6 +12,9 @@
 	templatedir = ~/.git_template
 [alias]
 	co = checkout
+	co-master = !git fetch origin master && git checkout "$@" origin/master
+	co-select = !git checkout $(git branch | selecta)
+	co-remote = !git fetch origin "$1" && git checkout "$1"
 	cob = checkout -b
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 	ctags = !.git/hooks/ctags
@@ -33,13 +36,19 @@
 	edit-branch = !$EDITOR $(git diff-base --name-only "$@")
 	edit-conflicts = !$EDITOR $(git diff-conflicts --name-only)
 	edit-modified = !$EDITOR $(git diff-modified --name-only "$@")
-	co-select = !git checkout $(git branch | selecta)
 	ls-ignored = ls-files --cached --ignored --others --directory --exclude-standard
 	statsu = status
-	remaster = rebase master
+	remaster = !git fetch origin master && git rebase origin/master
+	mm = !git fetch origin master && git merge origin/master
 [credential]
 	helper = osxkeychain
 [rebase]
 	autoStash = true
+	autosquash = true
 [commit]
 	verbose = true
+[rerere]
+	enabled = 1
+	autoupdate = true
+[push]
+	default = current
