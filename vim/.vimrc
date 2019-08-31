@@ -82,6 +82,10 @@ call plug#end()
 colorscheme default
 let g:airline_theme = 'minimalist'
 
+if has('gui_running')
+  colorscheme macvim
+end
+
 function! ReloadMood()
   for line in readfile($HOME.'/.dev-mood', '', 1)
     let &background = line
@@ -149,7 +153,7 @@ function! s:goyo_enter()
   if has('gui_running')
     set fullscreen
     " set linespace=16
-    set guifont=OpenDyslexicMono:h20
+    set guifont=OpenDyslexicMono:h16
   elseif exists('$TMUX')
     silent !tmux set status off
   endif
