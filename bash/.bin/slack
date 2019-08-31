@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+open -n -a Slackfari https://testdouble.slack.com "$CLIENT_SLACK"

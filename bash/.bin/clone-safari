@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+new_app="/Applications/$1.app"
+mkdir "$new_app"
+ln -s /Applications/Safari.app/Contents "$new_app"
+
+# echo "Now navigate to $new_app in the finder"
+# echo "Select your new app"
+# echo "CMD+I to Get Info"
+# echo "Drag any old icon you like in there ✨ 🖼"
+echo "Now you can run \`open -n -a $1 http://example.com\` and it will open a new instance of safari with your custom icon."
+echo "ProTip: Run \`set-finder-icon path/to/icon.icns $new_app\` to set a custom icon for your new clone."
