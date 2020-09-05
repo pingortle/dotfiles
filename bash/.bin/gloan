@@ -27,7 +27,7 @@ mkdir -p "$ORG_DIR"
 if [ -d "$REPO_DIR" ]; then
   echo "It looks like the repo was already cloned."
 else
-  git clone --depth 1 "git@github.com:$ORG/$REPO.git" "$REPO_DIR"
+  git clone "git@github.com:$ORG/$REPO.git" "$REPO_DIR"
 fi
 
 echo "cd $REPO_DIR\n" | pbcopy

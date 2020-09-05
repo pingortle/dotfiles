@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+commit_sha="$1"
+
+open https://github.com/pulls?q=$commit_sha

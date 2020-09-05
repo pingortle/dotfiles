@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+# require("delegate")
+
+class GemfileRubyVersionExtractor
+  attr_reader :ruby
+
+  def initialize
+    @gemfile = "./Gemfile"
+    @ruby = nil
+  end
+
+  def load
+    Dummy.new.tap do |dummy|
+      dummy.instance_eval(File.read(@gemfile), @gemfile)
+      @ruby = dummy.ruby_version
+    end
+
+    self
+  end
+
+  class Dummy
+    attr_accessor :ruby_version
+
+    alias_method :ruby, :ruby_version=
+
+    def noop(*)
+    end
+    alias_method :gem, :noop
+
+    def respond_to_missing?(*)
+      true
+    end
+
+    def method_missing(*)
+    end
+  end
+end
+
+puts GemfileRubyVersionExtractor.new.load.ruby

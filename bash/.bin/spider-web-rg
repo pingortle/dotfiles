@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eux
+
+rg -g '!'"$1" $(referral --type instance_method -c name $1 | \
+  ruby -e 'printf ?( + $stdin.read.chomp.gsub(/\n/, "[^)]+feature_name:[^)]+|").gsub(/\?/, "\\?") + ?)')

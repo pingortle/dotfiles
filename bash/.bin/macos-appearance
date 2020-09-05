@@ -2,16 +2,14 @@
 
 on run argv
   set desired to item 1 of argv
-  set workingApp to (path to frontmost application)
 
   tell application "System Events" to activate
   tell application "System Events"
+    set workingApp to name of first application process whose frontmost is true
     tell appearance preferences
       set dark mode to desired equal to "dark"
     end tell
   end tell
 
-  tell workingApp do
-    activate front window
-  end tell
+  tell application workingApp to activate front window
 end run

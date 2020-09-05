@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+for repo in $(find "$1" -d -name '.git' -exec dirname {} ';'); do
+  if [ -n "$(git -C "$repo" status --porcelain)" ]; then
+    echo "$repo"
+  fi
+done
+

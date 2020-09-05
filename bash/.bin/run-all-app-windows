@@ -1,0 +1,13 @@
+#!/usr/bin/env osascript
+
+on run argv
+  set target to item 1 of argv
+  set targetKeys to item 2 of argv
+
+  tell application target
+    activate
+    tell application "System Events" to keystroke targetKeys & ""
+    -- activate
+    -- tell application "System Events" to key code 36
+  end tell
+end run
