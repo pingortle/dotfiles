@@ -15,3 +15,6 @@ Session.vim
 tags
 # Persistent undo
 [._]*.un~
+
+# Mac stuff
+.DS_Store
