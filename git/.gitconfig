@@ -13,8 +13,8 @@
 [alias]
 	co = checkout
 	co-master = !git fetch origin master && git checkout "$@" origin/master
-	co-select = !git checkout $(git branch | selecta)
 	co-remote = !git fetch origin "$1" && git checkout "$1"
+	coauth = !printf \"Co-authored-by: %s\" \"$(git log --pretty=format:'%an <%ae>' -1000 | sort | uniq | fzf)\"
 	cob = checkout -b
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 	ctags = !.git/hooks/ctags
@@ -26,20 +26,23 @@
 	branch-pr = !hub pr list --head=$(git cb)
 	pp = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
 	revive = !git checkout $(git rev-list -n 1 HEAD -- \"$1\")^ \"$1\"
+	roots = rev-list --max-parents=0 HEAD
 	vim-since-base = !vim $(git diff-base --name-only)
 	toplevel = rev-parse --show-toplevel
 	dotgit = !echo \"$(git toplevel | tr -d \"\n\")\"/.git
 	summarize = !git diff-base --compact-summary
-	diff-base = !git diff $(git merge-base origin/master head)
+	diff-base = !git diff $(git merge-base ${BASE_BRANCH:-origin/master} head)
 	diff-conflicts = diff --diff-filter=U
 	diff-modified = diff --diff-filter=M
 	edit-branch = !$EDITOR $(git diff-base --name-only "$@")
 	edit-conflicts = !$EDITOR $(git diff-conflicts --name-only)
 	edit-modified = !$EDITOR $(git diff-modified --name-only "$@")
 	ls-ignored = ls-files --cached --ignored --others --directory --exclude-standard
+	ls-log = log --name-only --format=""
 	statsu = status
 	remaster = !git fetch origin master && git rebase origin/master
-	mm = !git fetch origin master && git merge origin/master
+	romi = rebase origin/master -i
+	mm = !git fetch origin master && git merge origin/master "$@"
 [credential]
 	helper = osxkeychain
 [rebase]
