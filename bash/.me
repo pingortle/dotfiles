@@ -73,6 +73,8 @@ dev() {
   find ~/dev -maxdepth 2 -depth 2 | fzf --query "$@"
 }
 
+mdtmp() { cd "$(mktemp -d)" || return; }
+
 my() {
   find ~/dev/$GIT_USER -type d -maxdepth 1 -depth 1 | fzf --query "$@"
 }
