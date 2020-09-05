@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
 "   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'airblade/vim-gitgutter'
-  Plug 'bswinnerton/vim-test-github'
+  " Plug 'bswinnerton/vim-test-github'
   Plug 'DataWraith/auto_mkdir'
   Plug 'danchoi/ri.vim'
   Plug 'digitaltoad/vim-pug'
@@ -34,9 +34,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'kana/vim-textobj-user'
 "   Plug 'michaeljsmith/vim-indent-object'
 "   Plug 'mustache/vim-mustache-handlebars'
-"   Plug 'mxw/vim-jsx'
+  " Plug 'mxw/vim-jsx'
   Plug 'nelstrom/vim-textobj-rubyblock'
-"   Plug 'pangloss/vim-javascript'
 "   Plug 'reedes/vim-pencil'
 "   Plug 'rizzatti/dash.vim'
   Plug 'sheerun/vim-polyglot'
@@ -53,6 +52,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
+  Plug 'urbit/hoon.vim'
 "   Plug 'tsiemens/vim-aftercolors'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-ruby/vim-ruby'
@@ -72,6 +72,7 @@ call plug#begin('~/.vim/plugged')
 "   Plug 'owickstrom/vim-colors-paramount'
 "   Plug 'robertmeta/nofrils'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'vim-scripts/bats.vim'
   Plug 'jeffkreeftmeijer/vim-dim'
 "   Plug 'Lokaltog/vim-monotone'
 call plug#end()
@@ -79,12 +80,13 @@ call plug#end()
 " " Theme
 " " set termguicolors
 " set background=light
-colorscheme default
-let g:airline_theme = 'minimalist'
-
 if has('gui_running')
   colorscheme macvim
+else
+  colorscheme dim
 end
+let g:airline_theme = 'minimalist'
+
 
 function! ReloadMood()
   for line in readfile($HOME.'/.dev-mood', '', 1)
@@ -101,6 +103,7 @@ endfunction
 
 command! GoodMorning call SetMood('morning')
 command! GoodNight call SetMood('night')
+command! ReloadMood call ReloadMood()
 
 " " Plugin Customization
 let g:markdown_fenced_languages = ['ruby', 'js=javascript']
@@ -109,10 +112,11 @@ let g:tmux_navigator_disable_when_zoomed = 1
 
 " " Plugin vim-test
 let test#strategy = 'dispatch'
+let test#custom_runners = {'Ruby': ['DHH']}
 
 nnoremap <silent> <cr>t :TestFile<cr>
 nnoremap <silent> <cr>n :TestNearest<cr>
-nnoremap <silent> <cr><cr> :TestLast<cr><cr>
+nnoremap <silent> <cr><cr> :TestLast<cr>
 
 " " Plugin vim-closetag
 " " filenames like *.xml, *.html, *.xhtml, ...
@@ -174,16 +178,18 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " " Plugin ALE
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_fixers.javascript = ['prettier-standard', 'standard']
+let g:ale_fixers.css = ['stylelint']
+let g:ale_fixers.javascript = ['prettier-standard', 'standard', 'eslint']
+let g:ale_fixers.python = ['autopep8']
 let g:ale_fixers.ruby = ['standardrb']
 let g:ale_fixers.scss = ['stylelint']
-let g:ale_fixers.css = ['stylelint']
 
 let g:ale_linters = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_linters.javascript = ['prettier-standard', 'standard']
+let g:ale_linters.css = ['stylelint']
+let g:ale_linters.javascript = ['prettier-standard', 'standard', 'eslint']
+let g:ale_linters.python = ['flake8']
 let g:ale_linters.ruby = ['standardrb', 'reek']
 let g:ale_linters.scss = ['stylelint']
-let g:ale_linters.css = ['stylelint']
 
 nnoremap <leader>= :ALEFix<cr>
 nnoremap <leader>an :ALENextWrap<cr>
@@ -219,6 +225,13 @@ set spelllang=en_us
 set complete+=kspell
 set nowrap
 set splitright
+
+set winheight=5
+set winminheight=5
+set winheight=999
+" set winwidth=5
+" set winminwidth=5
+" set winwidth=999
 
 set wildcharm=<C-Z>
 nnoremap <leader>z :b <C-Z>
@@ -265,6 +278,14 @@ call textobj#user#plugin('dash', {
       \   },
       \ })
 
+call textobj#user#plugin('md', {
+      \   'md-strikethrough': {
+      \     'pattern': ['\~', '\~'],
+      \     'select-a': 'a~',
+      \     'select-i': 'i~',
+      \   },
+      \ })
+
 " " Turn on spelling for prosey files
 augroup vimrc
   autocmd FileType markdown setlocal spell
@@ -275,6 +296,21 @@ augroup END
 nnoremap <leader>??? "=strftime("%x")<CR>P^i# <C-[>o
 command! TIL execute "tabe" strftime("%Y-%m-%d.md")
 nnoremap <leader>p :execute 'tabe' strftime("$MYDEV/notes/%Y-%m-%d.md")<CR>
+command! DTtime :call setline(line('.'), strftime('%H:%M') . getline('.'))
+command! DTdate :call setline(line('.'), strftime('%m/%d/%Y') . getline('.'))
+command! DTzk :call setline(line('.'), strftime("%Y%m%d:%s") . getline('.'))
+
+command! MDLineBold :call SurroundLine('**')
+command! MDLineStrike :call SurroundLine('~~')
+command! MDLineHeader :call setline(line('.'), '#' . getline('.'))
+
+nnoremap <leader>mmb :MDLineBold<cr>
+nnoremap <leader>mms :MDLineStrike<cr>
+nnoremap <leader>mmh :MDLineHeader<cr>
+
+function! SurroundLine(surrounding)
+  call setline(line('.'), a:surrounding . getline('.') . a:surrounding)
+endfunction
 
 " " Session
 function! GitDir()
@@ -302,10 +338,25 @@ endfunction
 
 nnoremap <leader>w :wa<CR>:call SaveSession(GitDir().'/.vim-sessions/'.GitBranch().'.vim')<CR>
 
-command! ChmodX execute "!chmod +x %"
-nnoremap <leader>#! ^i#!/usr/bin/env
+command! GitBranchNote execute 'e' GitDir().'/notes/'.GitBranch().'.md'
 
-nnoremap <leader>rg :Rg <C-r><C-w> -w
+command! Terminal execute "Dispatch open -a Terminal ."
+command! ChmodX execute "Dispatch chmod +x %"
+nnoremap <leader>#! ggI#!/usr/bin/env
+nnoremap <leader>#!! ggI#!/usr/bin/env bash<cr><cr>set -euo pipefail<cr><cr>
+
+nnoremap <leader>rg :Rg -w <C-r><C-w>
+
+command! WUPS execute 'let @*=@"'
+
+command! ZKMode execute 'setf markdown'
+command! ZKSave execute 'w' strftime("%Y%m%d-".@z.".md")
+
+" Go to next location in list
+nnoremap <leader>cn :cnext<cr>
+nnoremap <leader>cp :cprevious<cr>
+
+nnoremap <leader><cr> :<c-p><cr>
 
 " " Leave this at the end so projects get an opportunity to override things.
 " " TODO: Add a boilerplate .vimrc to the git template
