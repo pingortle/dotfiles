@@ -1,5 +1,5 @@
-export GEM_HOME=$HOME/.gem
-export TERM=xterm-256color-italic
+# vim:set ft=sh:
+
 export CLICOLOR=1
 export EDITOR=vim
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -11,6 +11,10 @@ export GIT_USER=pingortle
 export DEV="$HOME/dev"
 export MYDEV="$DEV/$GIT_USER"
 export DOTFILES="$MYDEV/dotfiles"
+export ICLOUD_DIR="~/Library/Mobile Documents/com~apple~CloudDocs"
+
+export HUSKY_SKIP_INSTALL=1 # whyyy would anyone opt into slow commits???
+export HUSKY_SKIP_HOOKS=1
 
 eval "$(git run --bash-complete)"
 
@@ -36,38 +40,49 @@ alias browse-node-docs="open https://nodejs.org/dist/latest/docs/api/"
 alias mdlive="npx --quiet markdown-live"
 alias whatsmyip="curl https://api.ipify.org"
 alias kitty="/Applications/kitty.app/Contents/MacOS/kitty"
-alias hr='printf "%$(tput cols)s" "" | tr " " "◦"; echo; echo'
+alias page='printf "%$(tput cols)s" "" | tr " " "◦"; echo'
+alias hr=page
 alias oven='cd ~/dev/pingortle/oven'
-alias c-icloud='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
+alias c-icloud='cd "$ICLOUD_DIR"'
+alias gemfile-me='echo "source \"https://rubygems.org\"" > Gemfile'
 
 alias la="ls -a"
 alias be="bundle exec"
+alias breadme="bat README.md"
 alias select-history='$(history | selecta | sed "s/^ *[0-9]* *//g")'
 alias frazzled='vim ~/.frazzle-dazzle.md'
 alias defrazzle='bat ~/.frazzle-dazzle.md'
 
+editor() {
+  export EDITOR="$1"
+}
+
 function vrg {
-  vim +"Rg '$@'"
+  $EDITOR +"Rg '$*'"
 }
 
 function prg {
   rg -p "$@" | less -RMFXK
 }
 
-function dev {
-  find ~/dev -maxdepth 2 -depth 2 | fzf --query "$1"
+function srg {
+  prg -g '!test' "$@"
 }
 
-function my {
-  find ~/dev/$GIT_USER -type d -maxdepth 1 -depth 1 | fzf --query "$1"
+dev() {
+  find ~/dev -maxdepth 2 -depth 2 | fzf --query "$@"
 }
 
-function cdev {
-  cd $(dev $@)
+my() {
+  find ~/dev/$GIT_USER -type d -maxdepth 1 -depth 1 | fzf --query "$@"
 }
 
-function cmy {
-  cd $(my $@)
+cdev() {
+  cd "$(dev "$@")"
+}
+
+cmy() {
+  cd "$(my "$@")"
 }
 
 function set-terminal-app-profile {
@@ -76,14 +91,15 @@ function set-terminal-app-profile {
 }
 
 function good-night {
-  terminal-profile Dark
+  terminal-profile Basic
   macos-appearance dark
   printf dark > ~/.dev-mood
   export DEV_MOOD=dark
+  run-all-app-windows MacVim ":ReloadMood"
 }
 
 function good-morning {
-  terminal-profile Light
+  terminal-profile Basic
   macos-appearance light
   printf light > ~/.dev-mood
   export DEV_MOOD=light
