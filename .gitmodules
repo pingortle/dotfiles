@@ -5,7 +5,7 @@
 	path = terminal/.iterm2-themes/iterm-two-firewatch
 	url = git@github.com:rakr/iterm-two-firewatch.git
 [submodule "tmux/.tmux/plugins/tpm"]
-	path = tmux/.tmux/plugins/tpm
+	path = stow-tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule "nodenv/.nodenv/plugins"]
 	path = nodenv/.nodenv/plugins

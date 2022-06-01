@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+git ls-files \
+  | \
+  while read file
+  do
+    git log --format="%at" --reverse -- "$file" | head -n1 | awk '{print $0 " " "'"$file"'"}'
+  done \
+  | \
+  sort -n
