@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-git checkout "$(git branch | selecta --search "$@")"
+if [ -z "$*" ]; then
+  git checkout "$(git branch --format='%(refname:short)' | fzf | tr -d '[:space:]')"
+else
+  git checkout "$(git branch --format='%(refname:short)' | fzf --query "$@" | tr -d '[:space:]')"
+fi

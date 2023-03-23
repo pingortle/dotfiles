@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
 
 # Original gist by @searls: https://gist.github.com/searls/62d5cb2f736a75c73ae2
 # A simple script to keep a tidy ~/code directory organized by owner & then repo
@@ -15,6 +15,7 @@
 # Once cloned, will copy a "cd" command to quickly change into repo directory
 
 IFS='/' read -ra ADDR <<< "$1"
+ADDR=("${ADDR[@]: -2:2}")
 ORG="${ADDR[0]}"
 REPO="${ADDR[1]-$2}"
 ORG_DIR="$HOME/dev/$ORG"
@@ -30,5 +31,5 @@ else
   git clone "git@github.com:$ORG/$REPO.git" "$REPO_DIR"
 fi
 
-echo "cd $REPO_DIR\n" | pbcopy
-echo "Hit Command-V to cd into the repo!"
+printf "cd %s" "$REPO_DIR" | pbcopy
+echo "Hit Command-V + Return to cd into the repo!"

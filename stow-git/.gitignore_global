@@ -18,3 +18,6 @@ tags
 
 # Mac stuff
 .DS_Store
+
+# Personal quirks
+.env.eb

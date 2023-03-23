@@ -19,8 +19,8 @@ repo_dir="$login_dir/$repo"
 
 # Make sure directory exists
 mkdir -p "$repo_dir"
-cd "$repo_dir"
+cd "$repo_dir" || exit 1
 git init
 
-echo "cd $repo_dir" | pbcopy
-echo "Hit Command-V to cd into the repo!"
+echo -n "cd $repo_dir" | pbcopy
+echo "Hit Command-V + Return to cd into the repo!"

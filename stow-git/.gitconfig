@@ -1,6 +1,7 @@
 [user]
-	email = pingortle@gmail.com
+	email = kaleb.lape@gmail.com
 	name = Kaleb Lape
+	signingkey = 865E9268C740BD76
 [github]
 	user = pingortle
 [color]
@@ -10,10 +11,13 @@
 	excludesfile = ~/.gitignore_global
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = master
 [alias]
+	branches = branch --sort='-authordate'
+	branches-unmerged = branches --no-merged=master
 	co = checkout
 	co-master = !git fetch origin master && git checkout "$@" origin/master
-	co-remote = !git fetch origin "$1" && git checkout "$1"
+	co-remote = !git fetch origin "$1" && git checkout "$@"
 	coauth = !printf \"Co-authored-by: %s\" \"$(git log --pretty=format:'%an <%ae>' -1000 | sort | uniq | fzf)\"
 	cob = checkout -b
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
@@ -34,10 +38,13 @@
 	diff-base = !git diff $(git merge-base ${BASE_BRANCH:-origin/master} head)
 	diff-conflicts = diff --diff-filter=U
 	diff-modified = diff --diff-filter=M
+	edit-excludes = !$EDITOR $(git dotgit)/info/exclude
 	edit-branch = !$EDITOR $(git diff-base --name-only "$@")
 	edit-conflicts = !$EDITOR $(git diff-conflicts --name-only)
 	edit-modified = !$EDITOR $(git diff-modified --name-only "$@")
+	edit-untracked = !$EDITOR $(git ls-untracked "$@")
 	ls-ignored = ls-files --cached --ignored --others --directory --exclude-standard
+	ls-untracked = ls-files --others --exclude-standard
 	ls-log = log --name-only --format=""
 	statsu = status
 	remaster = !git fetch origin master && git rebase origin/master
@@ -50,6 +57,7 @@
 	autosquash = true
 [commit]
 	verbose = true
+	gpgsign = true
 [rerere]
 	enabled = 1
 	autoupdate = true
