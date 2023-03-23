@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+gloan "$GIT_USER" "$1"

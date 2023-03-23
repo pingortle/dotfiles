@@ -4,8 +4,9 @@ export CLICOLOR=1
 export EDITOR=vim
 export XDG_CONFIG_HOME="$HOME/.config"
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/.ripgreprc"
-export HISTSIZE=100000
-export HISTFILESIZE=1000000
+
+export HISTSIZE=1000000
+export SAVEHIST=1000000000
 
 export GIT_USER=pingortle
 export DEV="$HOME/dev"
@@ -13,13 +14,15 @@ export MYDEV="$DEV/$GIT_USER"
 export DOTFILES="$MYDEV/dotfiles"
 export ICLOUD_DIR="~/Library/Mobile Documents/com~apple~CloudDocs"
 
+# Manage mischief
+export HOMEBREW_NO_AUTO_UPDATE=1
 export HUSKY_SKIP_INSTALL=1 # whyyy would anyone opt into slow commits???
 export HUSKY_SKIP_HOOKS=1
 
-eval "$(git run --bash-complete)"
+# eval "$(git run --bash-complete)"
 
-source /usr/local/etc/bash_completion.d/git-completion.bash
-source /usr/local/etc/bash_completion.d/git-prompt.sh
+# source /usr/local/etc/bash_completion.d/git-completion.bash
+# source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 [ -f $HOME/.secrets ] && source $HOME/.secrets
 source $HOME/.colors
@@ -27,7 +30,8 @@ source $HOME/.colors
 alias diff="git diff --no-index"
 alias trim='tr -d "\n"'
 alias rebash="source ~/.me"
-alias screencast='PS1="$SCREENCAST_PS1"'
+alias screencast='PROMPT="$SCREENCAST_PROMPT"; clear'
+alias o=overmind
 alias v=vim
 alias vs='vim -S $(git dotgit | trim)/.vim-sessions/$(git rev-parse --abbrev-ref HEAD | trim).vim'
 alias mvims='mvim -S $(git dotgit | trim)/.vim-sessions/$(git rev-parse --abbrev-ref HEAD | trim).vim'
@@ -45,6 +49,10 @@ alias hr=page
 alias oven='cd ~/dev/pingortle/oven'
 alias c-icloud='cd "$ICLOUD_DIR"'
 alias gemfile-me='echo "source \"https://rubygems.org\"" > Gemfile'
+alias gemfile-me-rails='echo "source \"https://rubygems.org\"\ngem \"rails\"" > Gemfile'
+# alias aws-date='date -v +3M -u +"%Y-%m-%dT%H:%M:%SZ"'
+alias aws-date='date -v +3M -u +"%m/%d/%Y %H:%M:%SZ"'
+alias doteb='dotenv -f .env.eb eb'
 
 alias la="ls -a"
 alias be="bundle exec"
@@ -52,6 +60,7 @@ alias breadme="bat README.md"
 alias select-history='$(history | selecta | sed "s/^ *[0-9]* *//g")'
 alias frazzled='vim ~/.frazzle-dazzle.md'
 alias defrazzle='bat ~/.frazzle-dazzle.md'
+alias awslocal='AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-$AWS_DEFAULT_REGION} aws --endpoint-url=http://${LOCALSTACK_HOST:-localhost}:4566'
 
 editor() {
   export EDITOR="$1"
@@ -69,14 +78,26 @@ function srg {
   prg -g '!test' "$@"
 }
 
+fzfq() {
+  if [ -n "$*" ]; then
+    fzf --query "$@"
+  else
+    fzf
+  fi
+}
+
+colorless() {
+  less -RMFXK "$@"
+}
+
 dev() {
-  find ~/dev -maxdepth 2 -depth 2 | fzf --query "$@"
+  find ~/dev -maxdepth 2 -depth 2 -type d | fzfq "$@"
 }
 
 mdtmp() { cd "$(mktemp -d)" || return; }
 
 my() {
-  find ~/dev/$GIT_USER -type d -maxdepth 1 -depth 1 | fzf --query "$@"
+  find ~/dev/$GIT_USER -type d -maxdepth 1 -depth 1 | fzfq "$@"
 }
 
 cdev() {
@@ -113,4 +134,12 @@ function visualize {
     -map "[v]" \
     -map 0:a \
     $2
+}
+
+ebus_e1() {
+  eb $@ --region us-east-1
+}
+
+ebeu_w2() {
+  eb $@ --region eu-west-2
 }

@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+require "bundler/inline"
+
+gemfile(true, quiet: true) do
+  source "https://rubygems.org"
+
+  gem "spicy-proton"
+end
+
+class Interval
+  def initialize(value, unit:)
+    @value = value
+    @unit = unit
+  end
+
+  def after?(other)
+    normalize > other.normalize
+  end
+
+  def self.between(a, b)
+    new((a - b).abs, unit: TIME)
+  end
+
+  protected
+
+  def normalize
+    @unit.normalize(@value)
+  end
+
+  class Unit < Struct.new(:multiplier)
+    def normalize(value)
+      value * multiplier
+    end
+  end
+
+  TIME = Unit.new(1)
+  SECONDS = TIME
+end
+
+class Ticker < Struct.new(:interval)
+  attr_accessor :count
+
+
+  def tick
+    if should_tick?
+      yield
+      reset
+    end
+  end
+
+  def reset
+    @last = Time.now
+  end
+
+  def should_tick?
+    @last.nil? || elapsed.after?(interval)
+  end
+
+  def elapsed
+    Interval.between(
+      Time.now,
+      @last
+    )
+  end
+end
+
+$stdout.sync = true
+ticker = Ticker.new(
+  Interval.new(3, unit: Interval::SECONDS)
+)
+
+loop do
+  ticker.tick do
+    puts 5.times.map { Spicy::Proton.pair }.join("\n")
+  end
+  sleep 0.1
+  $stdout.write("\0")
+end

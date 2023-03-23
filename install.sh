@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eux
 
-for dir in */
+for dir in stow-*/
 do
   ln -sf ../.stow-local-ignore $dir/
   stow -v --target=$HOME $dir

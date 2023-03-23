@@ -1,2 +1,6 @@
 source $HOME/.env
-source $HOME/.me
+
+# TODO: Delete all custom bash things now that I'm using zsh? Farewell old
+# friend… 😢
+
+# source $HOME/.me

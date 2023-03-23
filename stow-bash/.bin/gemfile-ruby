@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# require("delegate")
+require("json")
 
 class GemfileRubyVersionExtractor
   attr_reader :ruby
@@ -37,4 +37,55 @@ class GemfileRubyVersionExtractor
   end
 end
 
+class GemfileToJsonConverter
+  def initialize
+    @gemfile = "./Gemfile"
+    @data = nil
+  end
+
+  def load
+    JsonifyGemfile.new.tap do |dummy|
+      dummy.instance_eval(File.read(@gemfile), @gemfile)
+    end
+  end
+
+  class JsonifyGemfile
+    def initialize
+      @root = Hash.new
+      @context = @root
+    end
+
+    def to_json
+      @root.to_json
+    end
+
+    def gem(*args)
+      method_missing("gem", *args)
+    end
+
+    def respond_to_missing?(*)
+      true
+    end
+
+    def method_missing(method, *args, &block)
+      if block.nil?
+        @context[method] = Array.new if @context[method].nil?
+        @context[method] << args
+      else
+        args.each do |namespace|
+          @context[method] = Hash.new if @context[method].nil?
+          @context[method][namespace] = Hash.new if @context.dig(method, namespace).nil?
+          @context = @context.dig(method, namespace)
+
+          block.call
+
+        ensure
+          @context = @root
+        end
+      end
+    end
+  end
+end
+
 puts GemfileRubyVersionExtractor.new.load.ruby
+# puts GemfileToJsonConverter.new.load.to_json

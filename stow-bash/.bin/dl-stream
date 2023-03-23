@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eux
+
+# Usage: dl-stream <url> <output> [<index of stream>]
+
+ffmpeg -user_agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.3 Safari/605.1.15" \
+  -i "$1" \
+  -map "p:${3:-0}" \
+  -c copy \
+  "$2"

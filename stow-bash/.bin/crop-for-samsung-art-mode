@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+name="${1%.*}"
+convert "$1" -resize 3840x -gravity center -crop 3840x2160+0+0 +repage "${name}-samsung-art-mode.jpg"

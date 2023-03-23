@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require "bundler/inline"
+
+gemfile do
+  source "https://rubygems.org"
+  gem "rack"
+  gem "webrick"
+end
+
+Rack::Handler::WEBrick.run ->(env) {
+  Rack::Request.new(env).tap do |request|
+    request.body.read.tap do |body|
+      puts body unless body.empty?
+    end
+  end
+
+  [200, {"Content-Type" => "text/plain"}, ["OK"]]
+}

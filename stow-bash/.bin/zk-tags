@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-rg --no-filename -o '#[a-zA-Z-]+' | sort | uniq | fzf
+# rg --no-filename -o '#[a-zA-Z-]+' | sort | uniq | fzf
+rg --no-filename --only-matching \
+  '\s(#[a-zA-Z-/]+)' --replace '$1' \
+  | sort \
+  | uniq \
+  | fzf

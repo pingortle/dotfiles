@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function apple-touch-icon {
+  convert -density 1000 -scale $2x$2 -background white -flatten $1 $3.png
+}
+
+apple-touch-icon $1 192 apple-touch-icon
+apple-touch-icon $1 152 touch-icon-iphone
+apple-touch-icon $1 152 touch-icon-ipad
+apple-touch-icon $1 180 touch-icon-iphone-retina
+apple-touch-icon $1 167 touch-icon-ipad-retina

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require "bundler/inline"
+
+gemfile(true, quiet: true) do
+  source "https://rubygems.org"
+
+  gem "activesupport", require: ["active_support", "active_support/core_ext"]
+end
+
+puts "hello world".pluralize.titleize
+
