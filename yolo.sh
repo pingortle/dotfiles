@@ -1,5 +1,5 @@
 mkdir -p ~/dev/pingortle
-cd !$
+cd ~/dev/pingortle
 
 git clone git@github.com:pingortle/dotfiles.git
 
