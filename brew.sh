@@ -2,24 +2,25 @@
 set -e
 
 # Install brew
-command -v brew || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Freshen brew
 brew update
 brew upgrade
 
 # Essentials
-brew install ctags
+# brew install ctags
 brew install fzf
 brew install git
 brew install gpg
+brew install htop
 brew install shellcheck
 
 # Manage dotfiles
 brew install stow
 
 # Manage my runtimes
-brew cask install vagrant
+# brew cask install vagrant
 brew install rbenv
 brew install nodenv
 
@@ -29,25 +30,22 @@ brew install mas
 # Productivity
 brew install tmux
 brew install tmate
-brew install hub
+# brew install hub
+brew install gh
 brew install tree
 brew install ripgrep
-brew install mdp # Markdown presentations on terminal
-
-# Swiss Army Knife
-brew cask install keybase
-brew install transmission
 
 # Web
-brew install ievms
+# brew install ievms
 
 # GUI
-brew cask install macvim || true # "... || true" -> continue on error
-brew cask install google-chrome || true
-brew cask install virtualbox || true # requires sudo
-brew cask install virtualbox-extension-pack || true
-brew cask install iterm2 || true
-brew cask install licecap || true
+brew install --cask macvim || true # "... || true" -> continue on error
+brew install --cask rectangle || true
+brew install --cask google-chrome || true
+brew install --cask 1password || true
+# brew cask install virtualbox || true # requires sudo
+# brew cask install virtualbox-extension-pack || true
+# brew cask install licecap || true
 
 # Finally
 brew cleanup

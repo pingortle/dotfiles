@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-mas lucky 1Password
+mas install 497799835  # Xcode
