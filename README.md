@@ -6,6 +6,14 @@
 
 Run `./bootstrap.sh`
 
+### YOLO
+
+Do not run this unless you're me.
+
+```
+/bin/bash -c "$(curl https://raw.githubusercontent.com/pingortle/dotfiles/master/yolo.sh)"
+```
+
 ## Guarantee
 
 **Works On My Machine™** guaranteed! 👍
