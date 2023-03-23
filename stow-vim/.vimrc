@@ -18,34 +18,38 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug '/usr/local/opt/fzf'
+  " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
 "   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'airblade/vim-gitgutter'
-  " Plug 'bswinnerton/vim-test-github'
+  Plug 'airblade/vim-localorie'
   Plug 'DataWraith/auto_mkdir'
   Plug 'danchoi/ri.vim'
-  Plug 'digitaltoad/vim-pug'
+  " Plug 'digitaltoad/vim-pug'
   Plug 'alvan/vim-closetag'
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'ElmCast/elm-vim'
-  Plug 'janko-m/vim-test'
-  Plug 'jremmen/vim-ripgrep'
+  " Plug 'ElmCast/elm-vim'
+  " Plug 'fcpg/vim-waikiki'
+  " Plug 'jalvesaq/Nvim-R'
+  " Plug 'janko-m/vim-test'
+  Plug 'pingortle/vim-test', { 'branch': 'teenytest' }
+  " Plug 'jremmen/vim-ripgrep'
   Plug 'junegunn/goyo.vim'
-  Plug 'junegunn/vim-emoji'
+  " Plug 'junegunn/vim-emoji'
   Plug 'kana/vim-textobj-user'
-"   Plug 'michaeljsmith/vim-indent-object'
-"   Plug 'mustache/vim-mustache-handlebars'
-  " Plug 'mxw/vim-jsx'
+  " Plug 'leafOfTree/vim-vue-plugin'
+  Plug 'liuchengxu/graphviz.vim'
+  " Plug 'mattn/emmet-vim'
   Plug 'nelstrom/vim-textobj-rubyblock'
-"   Plug 'reedes/vim-pencil'
-"   Plug 'rizzatti/dash.vim'
+  Plug 'neovimhaskell/haskell-vim'
+  Plug 'rust-lang/rust.vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-bundler'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-dispatch'
-"   Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
-"   Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rbenv'
   Plug 'tpope/vim-rhubarb'
@@ -53,43 +57,25 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
   Plug 'urbit/hoon.vim'
-"   Plug 'tsiemens/vim-aftercolors'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-ruby/vim-ruby'
-  Plug 'w0rp/ale'
-
-" Themes
-"  Plug 'lifepillar/vim-solarized8'
-"  Plug 'rakr/vim-two-firewatch'
-"  Plug 'nightsense/snow'
-"  Plug 'KKPMW/sacredforest-vim'
-
-" commenting out until I get a chance to figure out what's going on
-"   Plug 'reedes/vim-colors-pencil'
-"   Plug 'sonph/onehalf', {'rtp': 'vim/'}
-"   Plug 'rakr/vim-one'
-"   Plug 'cormacrelf/vim-colors-github'
-"   Plug 'owickstrom/vim-colors-paramount'
-"   Plug 'robertmeta/nofrils'
-  Plug 'vim-airline/vim-airline-themes'
   Plug 'vim-scripts/bats.vim'
+  Plug 'w0rp/ale'
+  Plug 'zhaozg/vim-diagram'
+
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'jeffkreeftmeijer/vim-dim'
-"   Plug 'Lokaltog/vim-monotone'
 call plug#end()
 
 " " Theme
-" " set termguicolors
-" set background=light
-if has('gui_running')
-  colorscheme macvim
-else
-  colorscheme dim
-end
+colorscheme dim
 let g:airline_theme = 'minimalist'
 
-
 function! ReloadMood()
-  for line in readfile($HOME.'/.dev-mood', '', 1)
+  if !filereadable($home.'/.dev-mood')
+    return
+  end
+  for line in readfile($home.'/.dev-mood', '', 1)
     let &background = line
   endfor
 endfunction
@@ -127,7 +113,7 @@ let g:closetag_filenames = '*.html,*.html.erb,*.xhtml,*.phtml'
 " " filenames like *.xml, *.xhtml, ...
 " " This will make the list of non-closing tags self-closing in the specified files.
 
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
 
 " " filetypes like xml, html, xhtml, ...
 " " These are the file types where this plugin is enabled.
@@ -137,7 +123,7 @@ let g:closetag_filetypes = 'html,xhtml,phtml'
 " " filetypes like xml, xhtml, ...
 " " This will make the list of non-closing tags self-closing in the specified files.
 
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
 
 " " integer value [0|1]
 " " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
@@ -151,6 +137,8 @@ let g:closetag_shortcut = '>'
 " " Add > at current position without closing the current tag, default is ''
 
 let g:closetag_close_shortcut = '<leader>>'
+
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 " Plugin goyo
 function! s:goyo_enter()
@@ -177,30 +165,50 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " " Plugin ALE
-let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_fixers.css = ['stylelint']
-let g:ale_fixers.javascript = ['prettier-standard', 'standard', 'eslint']
-let g:ale_fixers.python = ['autopep8']
-let g:ale_fixers.ruby = ['standardrb']
-let g:ale_fixers.scss = ['stylelint']
+let g:ale_linter_aliases = {}
+let g:ale_linter_aliases.vue = ['vue', 'javascript']
+let g:ale_linter_aliases.json = ['json', 'javascript']
 
-let g:ale_linters = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_linters.css = ['stylelint']
-let g:ale_linters.javascript = ['prettier-standard', 'standard', 'eslint']
-let g:ale_linters.python = ['flake8']
+let g:ale_fixers = {}
+let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers.css = ['prettier']
+let g:ale_fixers.json = ['prettier', 'jq']
+let g:ale_fixers.javascript = ['prettier-standard', 'standard', 'eslint']
+let g:ale_fixers.vue = ['prettier', 'eslint']
+" let g:ale_fixers.python = ['autopep8']
+let g:ale_fixers.ruby = ['standardrb']
+" let g:ale_fixers.rust = ['rustfmt']
+let g:ale_fixers.eruby = ['erblint']
+let g:ale_fixers.terraform = ['terraform']
+
+let g:ale_linters = {}
+let g:ale_linters['*'] = ['remove_trailing_lines', 'trim_whitespace']
+let g:ale_linters.css = ['prettier']
+let g:ale_linters.javascript = ['standard']
+let g:ale_linters.json = ['jq']
+" let g:ale_linters.python = ['flake8']
 let g:ale_linters.ruby = ['standardrb', 'reek']
-let g:ale_linters.scss = ['stylelint']
+" let g:ale_linters.rust = ['analyzer']
+let g:ale_linters.eruby = ['erblint']
+let g:ale_linters.terraform = ['terraform']
+let g:ale_ruby_standardrb_executable = 'bundle'
+
+let g:ale_fix_on_save = 1
+
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 1
 
 nnoremap <leader>= :ALEFix<cr>
-nnoremap <leader>an :ALENextWrap<cr>
-nnoremap <leader>ap :ALEPreviousWrap<cr>
-nnoremap <leader>ad :ALEDetail<cr>
+nnoremap <leader>AN :ALENextWrap<cr>
+nnoremap <leader>AP :ALEPreviousWrap<cr>
+nnoremap <leader>AD :ALEDetail<cr>
+nnoremap <leader>A> :ALEGoToDefinition<cr>
 
 " " Whitespace
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-set showbreak=↪\ 
+set showbreak=↪\
 
 function! DefaultWhitespace()
   set list listchars=tab:\ \ ,precedes:«,extends:»,trail:░,nbsp:☐
@@ -225,6 +233,7 @@ set spelllang=en_us
 set complete+=kspell
 set nowrap
 set splitright
+let g:netrw_http_cmd = 'open'
 
 set winheight=5
 set winminheight=5
@@ -252,7 +261,7 @@ nnoremap <leader>k :m-2<CR>==
 nnoremap <leader>h <<
 nnoremap <leader>l >>
 
-nnoremap <leader>g :Gstatus<CR>
+nnoremap <leader>g :Git<CR>
 
 nnoremap <leader>f :FZF<CR>
 
@@ -342,21 +351,27 @@ command! GitBranchNote execute 'e' GitDir().'/notes/'.GitBranch().'.md'
 
 command! Terminal execute "Dispatch open -a Terminal ."
 command! ChmodX execute "Dispatch chmod +x %"
+nnoremap <cr><space> :Dispatch<cr>
 nnoremap <leader>#! ggI#!/usr/bin/env
 nnoremap <leader>#!! ggI#!/usr/bin/env bash<cr><cr>set -euo pipefail<cr><cr>
 
-nnoremap <leader>rg :Rg -w <C-r><C-w>
+nnoremap <leader>rg :Rg <C-r><C-w>
 
 command! WUPS execute 'let @*=@"'
+command! PBTestLastCommand execute 'let @*=g:test#last_command'
 
 command! ZKMode execute 'setf markdown'
 command! ZKSave execute 'w' strftime("%Y%m%d-".@z.".md")
+
+command! GUIScreenshare execute 'set guifont=Monaco:h33'
+command! GUIUnshare execute 'set guifont=Monaco:h16'
 
 " Go to next location in list
 nnoremap <leader>cn :cnext<cr>
 nnoremap <leader>cp :cprevious<cr>
 
 nnoremap <leader><cr> :<c-p><cr>
+nnoremap <silent> <leader>gf :let mycurf=expand("<cfile>")<cr><c-w>p:execute("e ".mycurf)<cr>
 
 " " Leave this at the end so projects get an opportunity to override things.
 " " TODO: Add a boilerplate .vimrc to the git template
