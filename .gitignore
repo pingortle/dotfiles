@@ -1,3 +1,5 @@
 */.stow-local-ignore
 
 /stow-vim/.vim/plugged/
+/stow-xdg/.config/fzf/
+/stow-xdg/.config/gh/
