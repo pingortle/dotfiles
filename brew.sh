@@ -14,6 +14,7 @@ brew install fzf && \
   "$(brew --prefix)"/opt/fzf/install --xdg --all
 brew install git
 brew install gpg
+brew install pinentry-mac
 brew install htop
 brew install shellcheck
 
